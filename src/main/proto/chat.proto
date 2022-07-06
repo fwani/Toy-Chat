@@ -1,0 +1,32 @@
+// proto3 버전 사용
+syntax = "proto3";
+
+
+// java option 세팅
+option java_package = "fwani.grpc";
+option java_multiple_files = true;
+option java_outer_classname = "ToyChatProto";
+
+service ChatService {
+  rpc SendMessage (stream ChatMessage) returns (stream ServerMessage);
+}
+
+enum ChatType {
+  JOIN = 0;
+  LEAVE = 1;
+  MESSAGE = 2;
+  NOTICE = 3;
+}
+
+message ChatMessage {
+  string chat_room_id = 1;
+  string message = 2;
+  string user = 3;
+  ChatType type = 4;
+}
+
+message ServerMessage {
+  string message = 1;
+  string user = 2;
+  ChatType type = 3;
+}
